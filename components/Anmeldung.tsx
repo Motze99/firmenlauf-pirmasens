@@ -132,13 +132,18 @@ export default function Anmeldung() {
             transition={{ duration: 0.5 }}
             className="md:col-span-2"
           >
-            <span className="text-[#4bc3f0] font-bold text-sm uppercase tracking-widest">Jetzt anmelden</span>
+            <span className="text-[#4bc3f0] font-bold text-sm uppercase tracking-widest">Interne Anmeldung</span>
             <h2 className="text-4xl font-black text-white mt-2 mb-5 leading-tight">
               Dein Platz<br />im Team.
             </h2>
-            <p className="text-[#b4e1f0] leading-relaxed mb-8">
-              Trag dich ein — wir kümmern uns um alles Weitere. Dein Trikot wartet schon.
+            <p className="text-[#b4e1f0] leading-relaxed mb-4">
+              Trag dich hier intern ein — das Orgateam meldet alle Teilnehmenden dann gemeinsam beim Veranstalter an.
             </p>
+            <div className="bg-[#2d78c3]/20 border border-[#2d78c3]/40 rounded-xl px-4 py-3 mb-8">
+              <p className="text-[#b4e1f0] text-sm leading-relaxed">
+                <span className="font-bold text-white">Wichtig:</span> Dies ist eine interne Interessenbekundung. Die offizielle Anmeldung beim Veranstalter erfolgt gesammelt durch das Orgateam von MVZ Südwest.
+              </p>
+            </div>
 
             <div className="flex flex-col gap-3.5 text-sm">
               {[
@@ -184,7 +189,7 @@ export default function Anmeldung() {
                   T-Shirt-Größe: <strong>{form.tshirt}</strong> · Standort: <strong>{form.standort}</strong>
                 </p>
                 <p className="text-[#4bc3f0] text-sm mt-4 font-medium">
-                  Wir freuen uns auf dich am 11. September! 🏃
+                  Das Orgateam kümmert sich um die offizielle Anmeldung beim Veranstalter. Wir freuen uns auf dich am 11. September!
                 </p>
               </div>
             ) : (
@@ -286,7 +291,7 @@ export default function Anmeldung() {
                 </button>
 
                 <p className="text-xs text-[#b4e1f0]/50 text-center">
-                  * Pflichtfelder. Deine Daten werden nur für die interne Lauforganisation verwendet.
+                  * Pflichtfelder. Das Orgateam meldet alle intern Angemeldeten gesammelt beim Veranstalter an.
                 </p>
               </form>
             )}
