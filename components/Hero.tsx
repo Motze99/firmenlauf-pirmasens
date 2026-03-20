@@ -35,7 +35,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 bg-[#2d78c3]/30 border border-[#4bc3f0]/40 rounded-full px-4 py-1.5 mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-[#4bc3f0] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#4bc3f0] animate-pulse" aria-hidden="true" />
           <span className="text-[#b4e1f0] text-sm font-semibold tracking-wide">
             MVZ Südwest — Wir laufen gemeinsam!
           </span>
@@ -118,6 +118,7 @@ export default function Hero() {
       </div>
 
       <motion.div
+        aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}

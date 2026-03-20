@@ -50,26 +50,28 @@ function validate(form: FormData): FormErrors {
 function Field({
   label,
   error,
+  htmlFor,
   children,
 }: {
   label: string;
   error?: string;
+  htmlFor: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <label className="block text-xs font-bold text-[#4bc3f0] uppercase tracking-wider mb-1.5">
+      <label htmlFor={htmlFor} className="block text-xs font-bold text-[#4bc3f0] uppercase tracking-wider mb-1.5">
         {label}
       </label>
       {children}
-      {error && <p className="mt-1.5 text-xs text-red-500 font-medium">{error}</p>}
+      {error && <p id={`${htmlFor}-error`} role="alert" className="mt-1.5 text-xs text-red-500 font-medium">{error}</p>}
     </div>
   );
 }
 
 const inputClass = (error?: string) =>
-  `w-full border rounded-xl px-4 py-2.5 text-[#1a2a3a] bg-white focus:outline-none transition-colors ${
-    error ? "border-red-400 focus:border-red-500" : "border-[#b4e1f0] focus:border-[#3ca5e1]"
+  `w-full border rounded-xl px-4 py-2.5 text-[#1a2a3a] bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#2d78c3] focus-visible:ring-offset-1 transition-colors ${
+    error ? "border-red-400" : "border-[#b4e1f0] focus-visible:border-[#3ca5e1]"
   }`;
 
 export default function Anmeldung() {
@@ -199,8 +201,9 @@ export default function Anmeldung() {
                 className="bg-white/5 border border-[#2d78c3]/40 rounded-2xl p-8 flex flex-col gap-5 backdrop-blur-sm"
               >
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <Field label="Vorname *" error={touched.vorname ? errors.vorname : undefined}>
+                  <Field label="Vorname *" htmlFor="vorname" error={touched.vorname ? errors.vorname : undefined}>
                     <input
+                      id="vorname"
                       type="text"
                       name="vorname"
                       value={form.vorname}
@@ -208,11 +211,13 @@ export default function Anmeldung() {
                       onBlur={handleBlur}
                       placeholder="Max"
                       autoComplete="given-name"
+                      aria-describedby={touched.vorname && errors.vorname ? "vorname-error" : undefined}
                       className={inputClass(touched.vorname ? errors.vorname : undefined)}
                     />
                   </Field>
-                  <Field label="Nachname *" error={touched.nachname ? errors.nachname : undefined}>
+                  <Field label="Nachname *" htmlFor="nachname" error={touched.nachname ? errors.nachname : undefined}>
                     <input
+                      id="nachname"
                       type="text"
                       name="nachname"
                       value={form.nachname}
@@ -220,17 +225,20 @@ export default function Anmeldung() {
                       onBlur={handleBlur}
                       placeholder="Mustermann"
                       autoComplete="family-name"
+                      aria-describedby={touched.nachname && errors.nachname ? "nachname-error" : undefined}
                       className={inputClass(touched.nachname ? errors.nachname : undefined)}
                     />
                   </Field>
                 </div>
 
-                <Field label="Abteilung *" error={touched.abteilung ? errors.abteilung : undefined}>
+                <Field label="Abteilung *" htmlFor="abteilung" error={touched.abteilung ? errors.abteilung : undefined}>
                   <select
+                    id="abteilung"
                     name="abteilung"
                     value={form.abteilung}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    aria-describedby={touched.abteilung && errors.abteilung ? "abteilung-error" : undefined}
                     className={inputClass(touched.abteilung ? errors.abteilung : undefined)}
                   >
                     <option value="">— Abteilung wählen —</option>
@@ -240,12 +248,14 @@ export default function Anmeldung() {
                   </select>
                 </Field>
 
-                <Field label="Standort *" error={touched.standort ? errors.standort : undefined}>
+                <Field label="Standort *" htmlFor="standort" error={touched.standort ? errors.standort : undefined}>
                   <select
+                    id="standort"
                     name="standort"
                     value={form.standort}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    aria-describedby={touched.standort && errors.standort ? "standort-error" : undefined}
                     className={inputClass(touched.standort ? errors.standort : undefined)}
                   >
                     <option value="">— Standort wählen —</option>
@@ -255,19 +265,20 @@ export default function Anmeldung() {
                   </select>
                 </Field>
 
-                <Field label="T-Shirt-Größe *" error={touched.tshirt ? errors.tshirt : undefined}>
-                  <div className="flex flex-wrap gap-2 mt-0.5">
+                <Field label="T-Shirt-Größe *" htmlFor="tshirt" error={touched.tshirt ? errors.tshirt : undefined}>
+                  <div role="group" aria-labelledby="tshirt-label" className="flex flex-wrap gap-2 mt-0.5">
                     {TSHIRT_SIZES.map((size) => (
                       <button
                         key={size}
                         type="button"
+                        aria-pressed={form.tshirt === size}
                         onClick={() => {
                           const updated = { ...form, tshirt: size };
                           setForm(updated);
                           setTouched((prev) => ({ ...prev, tshirt: true }));
                           setErrors(validate(updated));
                         }}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold border transition-colors ${
+                        className={`px-4 py-2 rounded-xl text-sm font-bold border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d78c3] ${
                           form.tshirt === size
                             ? "bg-[#2d78c3] border-[#2d78c3] text-white"
                             : "bg-white border-[#b4e1f0] text-[#4b87c3] hover:border-[#2d78c3]"
@@ -278,14 +289,14 @@ export default function Anmeldung() {
                     ))}
                   </div>
                   {touched.tshirt && errors.tshirt && (
-                    <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.tshirt}</p>
+                    <p id="tshirt-error" role="alert" className="mt-1.5 text-xs text-red-500 font-medium">{errors.tshirt}</p>
                   )}
                 </Field>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-[#2d78c3] hover:bg-[#3ca5e1] disabled:opacity-60 text-white font-bold py-3.5 rounded-xl transition-colors text-lg mt-1 shadow-md shadow-[#2d78c3]/20"
+                  className="bg-[#2d78c3] hover:bg-[#3ca5e1] disabled:opacity-60 text-white font-bold py-3.5 rounded-xl transition-colors text-lg mt-1 shadow-md shadow-[#2d78c3]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2a3a]"
                 >
                   {loading ? "Wird gespeichert …" : "Ich bin dabei! →"}
                 </button>
