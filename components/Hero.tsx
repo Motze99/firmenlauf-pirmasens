@@ -9,9 +9,10 @@ const AuroraCanvas = dynamic(
 );
 
 const facts = [
-  { value: "11.09.", label: "September 2026" },
-  { value: "19:30", label: "Startzeit" },
-  { value: "4,2 km", label: "Streckenlänge" },
+  { value: "11.09.", label: "September 2026", sub: "Freitag" },
+  { value: "19:30", label: "Startzeit", sub: "Uhr" },
+  { value: "4,2 km", label: "Stadtkurs", sub: "Strecke" },
+  { value: "20.", label: "PW-Marathon", sub: "Jubiläum" },
 ];
 
 export default function Hero() {
@@ -23,6 +24,9 @@ export default function Hero() {
       </div>
       {/* Overlay for text legibility */}
       <div className="absolute inset-0 bg-[#1a2a3a]/40" />
+      {/* Right-side accent */}
+      <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#2d78c3]/10 to-transparent pointer-events-none" />
+      <div className="absolute right-[30%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#4bc3f0]/20 to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-20 w-full">
         <motion.div
@@ -41,7 +45,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-tight mb-6"
+          className="text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tight mb-6"
         >
           PARK
           <br />
@@ -49,10 +53,14 @@ export default function Hero() {
             className="text-[#4bc3f0]"
             style={{ animation: "aurora-glow 3s ease-in-out infinite" }}
           >
-            FIRMENLAUF
+            FIRMEN
+            <wbr />
+            LAUF
           </span>
           <br />
-          PIRMASENS
+          <span className="text-3xl md:text-5xl text-white/60 tracking-widest font-black">
+            PIRMASENS
+          </span>
         </motion.h1>
 
         <motion.p
@@ -86,10 +94,10 @@ export default function Hero() {
             Ich bin dabei →
           </a>
           <a
-            href="#team"
+            href="#strecke"
             className="border border-[#4bc3f0]/50 text-[#4bc3f0] hover:bg-[#4bc3f0]/10 font-semibold px-8 py-4 rounded-full text-lg transition-colors"
           >
-            Mehr erfahren
+            Zur Strecke
           </a>
         </motion.div>
 
@@ -97,12 +105,13 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-wrap gap-10 border-t border-white/10 pt-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-8"
         >
           {facts.map((s) => (
-            <div key={s.label}>
-              <div className="text-3xl font-black text-white">{s.value}</div>
-              <div className="text-[#b4e1f0] text-sm mt-0.5">{s.label}</div>
+            <div key={s.label} className="flex flex-col">
+              <div className="text-3xl font-black text-white tabular-nums">{s.value}</div>
+              <div className="text-[#4bc3f0] text-xs font-bold uppercase tracking-widest mt-0.5">{s.sub}</div>
+              <div className="text-[#b4e1f0]/70 text-xs mt-0.5">{s.label}</div>
             </div>
           ))}
         </motion.div>

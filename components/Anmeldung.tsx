@@ -70,7 +70,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">
+      <label className="block text-xs font-bold text-[#4bc3f0] uppercase tracking-wider mb-1.5">
         {label}
       </label>
       {children}
@@ -81,7 +81,7 @@ function Field({
 
 const inputClass = (error?: string) =>
   `w-full border rounded-xl px-4 py-2.5 text-[#1a2a3a] bg-white focus:outline-none transition-colors ${
-    error ? "border-red-400 focus:border-red-500" : "border-[#b4e1f0] focus:border-[#2d78c3]"
+    error ? "border-red-400 focus:border-red-500" : "border-[#b4e1f0] focus:border-[#3ca5e1]"
   }`;
 
 export default function Anmeldung() {
@@ -132,7 +132,7 @@ export default function Anmeldung() {
   }
 
   return (
-    <section id="anmeldung" className="py-24 bg-white">
+    <section id="anmeldung" className="py-24 bg-[#1a2a3a]">
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid md:grid-cols-5 gap-12 items-start">
 
@@ -144,11 +144,11 @@ export default function Anmeldung() {
             transition={{ duration: 0.5 }}
             className="md:col-span-2"
           >
-            <span className="text-[#2d78c3] font-bold text-sm uppercase tracking-widest">Jetzt anmelden</span>
-            <h2 className="text-4xl font-black text-[#1a2a3a] mt-2 mb-5 leading-tight">
+            <span className="text-[#4bc3f0] font-bold text-sm uppercase tracking-widest">Jetzt anmelden</span>
+            <h2 className="text-4xl font-black text-white mt-2 mb-5 leading-tight">
               Dein Platz<br />im Team.
             </h2>
-            <p className="text-[#4a5568] leading-relaxed mb-8">
+            <p className="text-[#b4e1f0] leading-relaxed mb-8">
               Trag dich ein — wir kümmern uns um alles Weitere. Dein Trikot wartet schon.
             </p>
 
@@ -160,7 +160,7 @@ export default function Anmeldung() {
                 { emoji: "🏃", text: "Ca. 4,2 km Stadtkurs" },
                 { emoji: "🎉", text: "After-Run am Beckenhof" },
               ].map((item) => (
-                <div key={item.text} className="flex items-center gap-3 text-[#4a5568]">
+                <div key={item.text} className="flex items-center gap-3 text-[#b4e1f0]">
                   <span className="text-lg w-6 text-center shrink-0">{item.emoji}</span>
                   <span>{item.text}</span>
                 </div>
@@ -177,7 +177,7 @@ export default function Anmeldung() {
             className="md:col-span-3"
           >
             {submitted ? (
-              <div className="bg-[#f0f8ff] border border-[#b4e1f0] rounded-2xl p-10 text-center">
+              <div className="bg-white/5 border border-[#4bc3f0]/30 rounded-2xl p-10 text-center backdrop-blur-sm">
                 <motion.div
                   initial={{ scale: 0.7, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -186,16 +186,16 @@ export default function Anmeldung() {
                 >
                   🎉
                 </motion.div>
-                <h3 className="text-2xl font-black text-[#1a2a3a] mb-2">
+                <h3 className="text-2xl font-black text-white mb-2">
                   Du bist dabei, {form.vorname}!
                 </h3>
-                <p className="text-[#4a5568] mb-1">
+                <p className="text-[#b4e1f0] mb-1">
                   Anmeldung für <strong>{form.vorname} {form.nachname}</strong> erhalten.
                 </p>
-                <p className="text-[#4a5568] text-sm">
+                <p className="text-[#b4e1f0] text-sm">
                   T-Shirt-Größe: <strong>{form.tshirt}</strong> · Standort: <strong>{form.standort}</strong>
                 </p>
-                <p className="text-[#4b87c3] text-sm mt-4 font-medium">
+                <p className="text-[#4bc3f0] text-sm mt-4 font-medium">
                   Wir freuen uns auf dich am 11. September! 🏃
                 </p>
               </div>
@@ -203,7 +203,7 @@ export default function Anmeldung() {
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="bg-[#f0f8ff] border border-[#b4e1f0] rounded-2xl p-8 flex flex-col gap-5"
+                className="bg-white/5 border border-[#2d78c3]/40 rounded-2xl p-8 flex flex-col gap-5 backdrop-blur-sm"
               >
                 <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="Vorname *" error={touched.vorname ? errors.vorname : undefined}>
@@ -297,7 +297,7 @@ export default function Anmeldung() {
                   {loading ? "Wird gespeichert …" : "Ich bin dabei! →"}
                 </button>
 
-                <p className="text-xs text-[#4a5568]/70 text-center">
+                <p className="text-xs text-[#b4e1f0]/50 text-center">
                   * Pflichtfelder. Deine Daten werden nur für die interne Lauforganisation verwendet.
                 </p>
               </form>

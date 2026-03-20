@@ -40,7 +40,7 @@ export default function TeamSection() {
       {/* Team-Gedanke */}
       <section id="team" className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -64,7 +64,7 @@ export default function TeamSection() {
               </p>
             </motion.div>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4">
               {gruende.map((g, i) => (
                 <motion.div
                   key={g.title}
@@ -72,13 +72,16 @@ export default function TeamSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.1 }}
-                  className="flex items-start gap-4 bg-[#f0f8ff] border border-[#b4e1f0] rounded-2xl p-5 hover:border-[#3ca5e1] transition-colors group"
+                  className="relative flex items-start gap-5 bg-[#f0f8ff] border border-[#b4e1f0] rounded-2xl p-5 hover:border-[#3ca5e1] hover:shadow-md transition-all group overflow-hidden"
                 >
+                  <span className="absolute right-4 top-2 text-6xl font-black text-[#2d78c3]/8 leading-none select-none pointer-events-none">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <div className="text-[#2d78c3] shrink-0 mt-0.5 group-hover:text-[#3ca5e1] transition-colors">
                     {g.icon}
                   </div>
-                  <div>
-                    <div className="font-bold text-[#1a2a3a] mb-1">{g.title}</div>
+                  <div className="relative z-10">
+                    <div className="font-black text-[#1a2a3a] mb-1">{g.title}</div>
                     <div className="text-[#4a5568] text-sm leading-relaxed">{g.text}</div>
                   </div>
                 </motion.div>
