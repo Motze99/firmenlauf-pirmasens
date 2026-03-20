@@ -16,23 +16,11 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 const TSHIRT_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
 const ABTEILUNGEN = [
-  "Orthopädie",
   "Allgemeinmedizin",
-  "Gynäkologie",
-  "Innere Medizin",
-  "Radiologie",
-  "Pädiatrie",
-  "Dermatologie",
-  "HNO",
-  "Urologie",
   "Neurologie",
-  "Psychiatrie / Psychotherapie",
-  "Physiotherapie",
-  "Labor",
-  "Verwaltung",
-  "Pflege",
-  "IT / Technik",
-  "Sonstige",
+  "Orthopädie",
+  "Gynäkologie",
+  "Urologie",
 ];
 
 const STANDORTE = [
