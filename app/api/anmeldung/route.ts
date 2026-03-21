@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { put } from "@vercel/blob";
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -52,6 +53,13 @@ export async function POST(req: NextRequest) {
     console.error("Resend error:", error);
     return NextResponse.json({ error: "E-Mail konnte nicht gesendet werden." }, { status: 500 });
   }
+
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  await put(
+    `anmeldungen/${id}.json`,
+    JSON.stringify({ vorname, nachname, abteilung, standort, tshirt, timestamp: new Date().toISOString() }),
+    { access: "public", contentType: "application/json" }
+  );
 
   return NextResponse.json({ success: true });
 }
