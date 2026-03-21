@@ -68,6 +68,44 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "E-Mail konnte nicht gesendet werden." }, { status: 500 });
   }
 
+  if (email) {
+    await resend.emails.send({
+      from: "Park Firmenlauf <onboarding@resend.dev>",
+      to: email,
+      subject: `Anmeldebestätigung – Park Firmenlauf Pirmasens 2026`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 560px; margin: 0 auto; background: #f0f8ff; border-radius: 12px; overflow: hidden;">
+          <div style="background: #2d78c3; padding: 28px 32px;">
+            <h1 style="color: white; margin: 0; font-size: 22px;">Du bist dabei, ${vorname}!</h1>
+            <p style="color: #b4e1f0; margin: 6px 0 0; font-size: 14px;">Park Firmenlauf Pirmasens 2026 · Fr., 11. September 2026 · 19:30 Uhr</p>
+          </div>
+          <div style="padding: 28px 32px;">
+            <p style="color: #1a2a3a; margin: 0 0 20px; line-height: 1.6;">
+              Deine interne Anmeldung für den <strong>Park Firmenlauf Pirmasens 2026</strong> ist eingegangen.
+              Das Orgateam von MVZ Südwest meldet alle Teilnehmenden gesammelt beim Veranstalter an – du musst nichts weiter tun.
+            </p>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+              ${row("Name", `${vorname} ${nachname}`)}
+              ${row("T-Shirt-Größe", `<strong style="font-size: 18px;">${tshirt}</strong>`)}
+              ${row("Abteilung", abteilung)}
+              ${row("Standort", standort, true)}
+            </table>
+            <div style="background: #2d78c3/10; border-left: 4px solid #2d78c3; padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 8px;">
+              <p style="margin: 0; color: #1a2a3a; font-size: 14px; line-height: 1.6;">
+                <strong>Start & Ziel:</strong> Messehalle Pirmasens (Messegelände)<br>
+                <strong>Strecke:</strong> ca. 4,2 km durch Innenstadt und Parkgelände<br>
+                <strong>After-Run:</strong> Beckenhof
+              </p>
+            </div>
+          </div>
+          <div style="background: #e8f4fd; padding: 16px 32px; font-size: 12px; color: #4b87c3; text-align: center;">
+            Bei Fragen wende dich an das Orgateam von MVZ Südwest.
+          </div>
+        </div>
+      `,
+    });
+  }
+
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   await put(
     `anmeldungen/${id}.json`,
