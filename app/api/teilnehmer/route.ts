@@ -12,7 +12,9 @@ export async function GET(req: NextRequest) {
 
   const teilnehmer = await Promise.all(
     blobs.map(async (blob) => {
-      const res = await fetch(blob.url);
+      const res = await fetch(blob.url, {
+        headers: { Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
+      });
       return res.json();
     })
   );

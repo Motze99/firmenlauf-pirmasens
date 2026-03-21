@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
   await put(
     `anmeldungen/${id}.json`,
     JSON.stringify({ vorname, nachname, abteilung, standort, tshirt, timestamp: new Date().toISOString() }),
-    { access: "public", contentType: "application/json" }
+    { access: "private", contentType: "application/json" }
   );
 
   return NextResponse.json({ success: true });
