@@ -298,6 +298,7 @@ export default function AdminPage() {
   const [filterTshirt, setFilterTshirt] = useState("");
   const [editEntry, setEditEntry] = useState<Teilnehmer | null>(null);
   const [deleteEntry, setDeleteEntry] = useState<Teilnehmer | null>(null);
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -509,34 +510,70 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((t, i) => (
-                    <tr key={t.blobUrl} className="border-b border-[#f0f8ff] hover:bg-[#f0f8ff]/60 transition-colors">
-                      <td className="px-5 py-3.5 text-[#4b87c3] font-medium">{i + 1}</td>
-                      <td className="px-5 py-3.5 font-bold text-[#1a2a3a]">{t.vorname} {t.nachname}</td>
-                      <td className="px-5 py-3.5 text-[#1a2a3a]">{t.abteilung}</td>
-                      <td className="px-5 py-3.5 text-[#1a2a3a]">{t.standort}</td>
-                      <td className="px-5 py-3.5">
-                        <span className="bg-[#2d78c3] text-white font-bold text-xs px-2.5 py-1 rounded-lg">{t.tshirt}</span>
-                      </td>
-                      <td className="px-5 py-3.5 text-[#4b87c3] text-xs">{formatDate(t.timestamp)}</td>
-                      <td className="px-5 py-3.5">
-                        <div className="flex gap-2 justify-end">
-                          <button
-                            onClick={() => setEditEntry(t)}
-                            className="text-xs font-bold text-[#2d78c3] hover:text-[#3ca5e1] border border-[#b4e1f0] hover:border-[#2d78c3] px-3 py-1.5 rounded-lg transition-colors"
-                          >
-                            Bearbeiten
-                          </button>
-                          <button
-                            onClick={() => setDeleteEntry(t)}
-                            className="text-xs font-bold text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-colors"
-                          >
-                            Löschen
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {filtered.map((t, i) => {
+                    const isExpanded = expandedRow === t.blobUrl;
+                    return (
+                      <>
+                        <tr key={t.blobUrl} className="border-b border-[#f0f8ff] hover:bg-[#f0f8ff]/60 transition-colors">
+                          <td className="px-5 py-3.5 text-[#4b87c3] font-medium">{i + 1}</td>
+                          <td className="px-5 py-3.5">
+                            <button
+                              onClick={() => setExpandedRow(isExpanded ? null : t.blobUrl)}
+                              className="font-bold text-[#1a2a3a] hover:text-[#2d78c3] text-left flex items-center gap-1.5 transition-colors"
+                            >
+                              {t.vorname} {t.nachname}
+                              <span className={`text-[#4b87c3] transition-transform ${isExpanded ? "rotate-180" : ""}`}>▾</span>
+                            </button>
+                          </td>
+                          <td className="px-5 py-3.5 text-[#1a2a3a]">{t.abteilung}</td>
+                          <td className="px-5 py-3.5 text-[#1a2a3a]">{t.standort}</td>
+                          <td className="px-5 py-3.5">
+                            <span className="bg-[#2d78c3] text-white font-bold text-xs px-2.5 py-1 rounded-lg">{t.tshirt}</span>
+                          </td>
+                          <td className="px-5 py-3.5 text-[#4b87c3] text-xs">{formatDate(t.timestamp)}</td>
+                          <td className="px-5 py-3.5">
+                            <div className="flex gap-2 justify-end">
+                              <button
+                                onClick={() => setEditEntry(t)}
+                                className="text-xs font-bold text-[#2d78c3] hover:text-[#3ca5e1] border border-[#b4e1f0] hover:border-[#2d78c3] px-3 py-1.5 rounded-lg transition-colors"
+                              >
+                                Bearbeiten
+                              </button>
+                              <button
+                                onClick={() => setDeleteEntry(t)}
+                                className="text-xs font-bold text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-colors"
+                              >
+                                Löschen
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        {isExpanded && (
+                          <tr key={`${t.blobUrl}-detail`} className="bg-[#f0f8ff] border-b border-[#b4e1f0]">
+                            <td />
+                            <td colSpan={6} className="px-5 py-4">
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2 text-xs">
+                                {[
+                                  ["Geschlecht", t.geschlecht],
+                                  ["Geburtsdatum", t.geburtsdatum],
+                                  ["E-Mail", t.email || "—"],
+                                  ["Straße / Hausnr.", t.strasse],
+                                  ["PLZ / Ort", `${t.plz} ${t.ort}`],
+                                  ["Nationalität", t.nationalitaet || "GER - Deutschland"],
+                                  ["Bisherige Teilnahmen", t.bisherigeTeilnahmen ?? "0"],
+                                ].map(([label, value]) => (
+                                  <div key={label}>
+                                    <span className="font-bold text-[#4b87c3] uppercase tracking-wider">{label}</span>
+                                    <p className="text-[#1a2a3a] mt-0.5">{value}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

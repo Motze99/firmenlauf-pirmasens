@@ -69,8 +69,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (email) {
-    await resend.emails.send({
-      from: "Park Firmenlauf <onboarding@resend.dev>",
+    const { error: confirmError } = await resend.emails.send({
+      from: process.env.MAIL_FROM ?? "Park Firmenlauf <onboarding@resend.dev>",
       to: email,
       subject: `Anmeldebestätigung – Park Firmenlauf Pirmasens 2026`,
       html: `
@@ -104,6 +104,7 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
+    if (confirmError) console.error("Bestätigungsmail Fehler:", confirmError);
   }
 
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
