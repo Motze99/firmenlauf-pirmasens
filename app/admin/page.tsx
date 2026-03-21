@@ -5,6 +5,14 @@ import { useState, useMemo } from "react";
 interface Teilnehmer {
   vorname: string;
   nachname: string;
+  geschlecht: string;
+  geburtsdatum: string;
+  email: string;
+  strasse: string;
+  plz: string;
+  ort: string;
+  nationalitaet: string;
+  bisherigeTeilnahmen: string;
   abteilung: string;
   standort: string;
   tshirt: string;
@@ -28,9 +36,13 @@ function formatDate(iso: string) {
 }
 
 function exportCsv(teilnehmer: Teilnehmer[]) {
-  const header = "Vorname,Nachname,Abteilung,Standort,T-Shirt,Angemeldet am";
+  const header = "Vorname,Nachname,Geschlecht,Geburtsdatum,E-Mail,Straße,PLZ,Ort,Nationalität,Bisherige Teilnahmen,Abteilung,Standort,T-Shirt,Angemeldet am";
   const rows = teilnehmer.map((t) =>
-    [t.vorname, t.nachname, t.abteilung, t.standort, t.tshirt, formatDate(t.timestamp)]
+    [
+      t.vorname, t.nachname, t.geschlecht ?? "", t.geburtsdatum ?? "", t.email ?? "",
+      t.strasse ?? "", t.plz ?? "", t.ort ?? "", t.nationalitaet ?? "", t.bisherigeTeilnahmen ?? "0",
+      t.abteilung, t.standort, t.tshirt, formatDate(t.timestamp),
+    ]
       .map((v) => `"${v}"`)
       .join(",")
   );
@@ -58,6 +70,14 @@ function EditModal({
   const [form, setForm] = useState({
     vorname: teilnehmer.vorname,
     nachname: teilnehmer.nachname,
+    geschlecht: teilnehmer.geschlecht ?? "",
+    geburtsdatum: teilnehmer.geburtsdatum ?? "",
+    email: teilnehmer.email ?? "",
+    strasse: teilnehmer.strasse ?? "",
+    plz: teilnehmer.plz ?? "",
+    ort: teilnehmer.ort ?? "",
+    nationalitaet: teilnehmer.nationalitaet ?? "GER - Deutschland",
+    bisherigeTeilnahmen: teilnehmer.bisherigeTeilnahmen ?? "0",
     abteilung: teilnehmer.abteilung,
     standort: teilnehmer.standort,
     tshirt: teilnehmer.tshirt,
@@ -90,7 +110,7 @@ function EditModal({
       <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-xl">
         <h2 className="text-xl font-black text-[#1a2a3a] mb-6">Eintrag bearbeiten</h2>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-h-[65vh] overflow-y-auto pr-1">
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Vorname</label>
@@ -99,6 +119,54 @@ function EditModal({
             <div>
               <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Nachname</label>
               <input className={inputClass} value={form.nachname} onChange={(e) => setForm({ ...form, nachname: e.target.value })} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Geschlecht</label>
+              <select className={inputClass} value={form.geschlecht} onChange={(e) => setForm({ ...form, geschlecht: e.target.value })}>
+                <option value="">— wählen —</option>
+                <option value="Männlich">Männlich</option>
+                <option value="Weiblich">Weiblich</option>
+                <option value="Divers">Divers</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Geburtsdatum</label>
+              <input type="date" className={inputClass} value={form.geburtsdatum} onChange={(e) => setForm({ ...form, geburtsdatum: e.target.value })} />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">E-Mail</label>
+            <input type="email" className={inputClass} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Straße und Hausnummer</label>
+            <input className={inputClass} value={form.strasse} onChange={(e) => setForm({ ...form, strasse: e.target.value })} />
+          </div>
+
+          <div className="grid grid-cols-5 gap-3">
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">PLZ</label>
+              <input className={inputClass} value={form.plz} onChange={(e) => setForm({ ...form, plz: e.target.value })} />
+            </div>
+            <div className="col-span-3">
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Ort</label>
+              <input className={inputClass} value={form.ort} onChange={(e) => setForm({ ...form, ort: e.target.value })} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Nationalität</label>
+              <input className={inputClass} value={form.nationalitaet} onChange={(e) => setForm({ ...form, nationalitaet: e.target.value })} />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#4b87c3] uppercase tracking-wider mb-1.5">Bisherige Teilnahmen</label>
+              <input type="number" min="0" className={inputClass} value={form.bisherigeTeilnahmen} onChange={(e) => setForm({ ...form, bisherigeTeilnahmen: e.target.value })} />
             </div>
           </div>
 
