@@ -185,7 +185,7 @@ export default function Anmeldung() {
                 { emoji: "🕣", text: "Startzeit: 19:30 Uhr" },
                 { emoji: "📍", text: "Messehalle Pirmasens" },
                 { emoji: "🏃", text: "Ca. 4,2 km Stadtkurs" },
-                { emoji: "🎉", text: "After-Run am Beckenhof" },
+                { emoji: "🎉", text: "Abschlussparty in der Messehalle" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3 text-[#b4e1f0]">
                   <span className="text-lg w-6 text-center shrink-0">{item.emoji}</span>

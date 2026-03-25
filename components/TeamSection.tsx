@@ -91,7 +91,7 @@ export default function TeamSection() {
         </div>
       </section>
 
-      {/* After-Run Beckenhof */}
+      {/* Abschlussparty Messehalle */}
       <section className="py-20 bg-[#1a2a3a] overflow-hidden">
         <div className="max-w-5xl mx-auto px-6">
           <div className="relative rounded-3xl bg-gradient-to-br from-[#2d78c3]/30 to-[#4bc3f0]/10 border border-[#2d78c3]/40 p-10 md:p-14">
@@ -111,12 +111,12 @@ export default function TeamSection() {
                   <span className="text-[#4bc3f0] text-sm font-semibold">Nach dem Lauf</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-                  After-Run am<br />
-                  <span className="text-[#4bc3f0]">Beckenhof</span>
+                  Abschlussparty in der<br />
+                  <span className="text-[#4bc3f0]">Messehalle</span>
                 </h2>
                 <p className="text-[#b4e1f0] leading-relaxed text-lg">
                   Das Beste kommt nach dem Zieleinlauf: Wir feiern gemeinsam
-                  am Beckenhof — mit kühlen Getränken, gutem Essen und
+                  in der Messehalle — mit kühlen Getränken, gutem Essen und
                   dem wohlverdienten Jubel über unsere gemeinsame Leistung.
                 </p>
               </div>

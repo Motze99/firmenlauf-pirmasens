@@ -28,7 +28,7 @@ const waypoints = [
     num: "04",
     name: "Ziel",
     detail: "Messehalle Pirmasens",
-    desc: "Zieleinlauf im Jubel — und direkt weiter zur After-Run-Party am Beckenhof.",
+    desc: "Zieleinlauf im Jubel — und direkt weiter zur Abschlussparty in der Messehalle.",
     color: "#4b87c3",
   },
 ];
@@ -36,7 +36,6 @@ const waypoints = [
 const infos = [
   { label: "Distanz", value: "ca. 4,2 km", icon: "📏" },
   { label: "Untergrund", value: "Asphalt & Pflaster", icon: "🛣️" },
-  { label: "Schwierigkeit", value: "Flach & schnell", icon: "📈" },
 ];
 
 export default function StreckeSection() {

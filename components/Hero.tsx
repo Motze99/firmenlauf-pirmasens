@@ -78,7 +78,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.28 }}
           className="text-[#4bc3f0] font-semibold mb-10"
         >
-          Danach feiern wir zusammen am Beckenhof. 🎉
+          Danach feiern wir zusammen bei der Abschlussparty in der Messehalle. 🎉
         </motion.p>
 
         <motion.div
