@@ -17,6 +17,7 @@ interface FormData {
   abteilung: string;
   standort: string;
   tshirt: string;
+  laufschule: boolean;
 }
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
@@ -51,6 +52,7 @@ const initialForm: FormData = {
   abteilung: "",
   standort: "",
   tshirt: "",
+  laufschule: false,
 };
 
 function validate(form: FormData): FormErrors {
@@ -114,8 +116,9 @@ export default function Anmeldung() {
   const [loading, setLoading] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = e.target;
-    const updated = { ...form, [name]: value };
+    const { name, value, type } = e.target;
+    const val = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+    const updated = { ...form, [name]: val };
     setForm(updated);
     if (touched[name as keyof FormData]) {
       setErrors(validate(updated));
@@ -397,6 +400,23 @@ export default function Anmeldung() {
                     <p id="tshirt-error" role="alert" className="mt-1.5 text-xs text-red-400 font-medium">{errors.tshirt}</p>
                   )}
                 </Field>
+
+                {/* Laufschule Opt-in */}
+                <SectionHeader title="Laufschule" />
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="laufschule"
+                    id="laufschule"
+                    checked={form.laufschule}
+                    onChange={handleChange}
+                    className="mt-1 w-5 h-5 shrink-0 rounded border-[#b4e1f0] text-[#2d78c3] accent-[#2d78c3] cursor-pointer"
+                  />
+                  <span className="text-sm text-[#b4e1f0] leading-relaxed group-hover:text-white transition-colors">
+                    <span className="font-bold text-white">Ich möchte an der Laufschule von Frau Dr. Kästner teilnehmen.</span>{" "}
+                    Die Laufschule bereitet sportlich auf den Lauf vor — eine Teilnahme ist freiwillig und unverbindlich.
+                  </span>
+                </label>
 
                 <button
                   type="submit"
