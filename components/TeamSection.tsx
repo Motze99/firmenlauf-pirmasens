@@ -91,58 +91,6 @@ export default function TeamSection() {
         </div>
       </section>
 
-      {/* Laufschule Dr. Kästner */}
-      <section className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative rounded-3xl bg-gradient-to-br from-[#4bc3f0]/15 to-[#2d78c3]/10 border-2 border-[#3ca5e1]/50 p-8 md:p-12"
-          >
-            <div className="absolute -top-4 left-8">
-              <span className="inline-flex items-center gap-2 bg-[#2d78c3] text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-md">
-                Laufschule
-              </span>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 items-center mt-4">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-black text-[#1a2a3a] mb-4 leading-tight">
-                  Fit für den Lauf mit<br />
-                  <span className="text-[#2d78c3]">Dr. Kästner</span>
-                </h2>
-                <p className="text-[#4a5568] leading-relaxed mb-4">
-                  Frau Dr. Kästner bietet für alle Interessierten eine <strong>Laufschule</strong> an —
-                  ideal zur sportlichen Vorbereitung auf den Park Firmenlauf. Egal ob Einsteiger oder
-                  Wiedereinsteiger, jede und jeder ist herzlich willkommen.
-                </p>
-                <div className="bg-[#2d78c3]/10 border border-[#2d78c3]/30 rounded-xl px-4 py-3">
-                  <p className="text-[#1a2a3a] text-sm leading-relaxed">
-                    <span className="font-bold">Kein Leistungsdruck:</span> Die 4,2 km müssen nicht sportlich
-                    absolviert werden — wer möchte, kann die Strecke auch ganz gemütlich laufen oder gehen.
-                    Hauptsache dabei sein!
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4">
-                {[
-                  { emoji: "👟", text: "Für Einsteiger & Wiedereinsteiger" },
-                  { emoji: "📅", text: "Gezielte Vorbereitung auf den 11. September" },
-                  { emoji: "💪", text: "Gemeinsam trainieren & motivieren" },
-                  { emoji: "😊", text: "Spaß steht im Vordergrund" },
-                ].map((item) => (
-                  <div key={item.text} className="flex items-center gap-3 text-[#4a5568]">
-                    <span className="text-2xl">{item.emoji}</span>
-                    <span className="font-medium">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Abschlussparty Messehalle */}
       <section className="py-20 bg-[#1a2a3a] overflow-hidden">
         <div className="max-w-5xl mx-auto px-6">
